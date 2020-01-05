@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+<head>
+  <meta charset="utf-8">
+<style>
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  background-color: #2196F3;
+  padding: 5px;
+}
+
+.grid-item {
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  padding: 50px;
+  font-size: 30px;
+  text-align: center;
+}
+</style>
+</head>
+<body>
+
+<h1 style="text-align:center">XO Game</h1>
+  <h2 id="player" style="font-size:20px">player 1</h2>
+  
+
+<div id="container" class="grid-container">
+  <div id="0" class="grid-item"></div>
+  <div id="1" class="grid-item"></div>
+  <div id="2" class="grid-item"></div>  
+  <div id="3" class="grid-item"></div>
+  <div id="4" class="grid-item"></div>
+  <div id="5" class="grid-item"></div>  
+  <div id="6" class="grid-item"></div>
+  <div id="7" class="grid-item"></div>
+  <div id="8" class="grid-item"></div>  
+</div>
+<button onclick="myFunc()" type="button" style="margin: 10px;"> Reset </button>
+<script>
+  let flag=0;
+  let count=0;
+  let get=0;
+  const allCombinations = [
+    [0,1,2],
+    [3,4,5],
+    [6,7,8],
+    [0,3,6],
+    [1,4,7],
+    [2,5,8],
+    [0,4,8],
+    [2,4,6]
+  ]
+  
+  
+  const handleChildClick = (ele) => {
+    if(ele.target.innerText ==='X' ||ele.target.innerText=== 'O')
+    {
+      console.log(alert("try with another box"))
+    }
+    else
+    {
+    
+    ele.target.innerText = 'X'
+    
+     combination('X')
+
+    
+  
+    }
+    flag=1;
+    console.log(ele)
+    document.getElementById("player").innerHTML = "player 2";
+    }
+  
+  const handleChildClic=(ele) =>{
+    if(ele.target.innerText==='X' || ele.target.innerText=== 'O')
+    {
+      console.log(alert("try with another box"))
+    }
+    else
+    {
+    ele.target.innerText='O'
+    
+     combination('O')
+
+    }
+    
+    flag=0;
+    console.log(ele)
+    
+    document.getElementById("player").innerHTML = "player 1";
+    }
+    
+  
+  const abc = () => {
+    const container = document.getElementById('container')
+    for (let i=0; i< container.children.length; i++)
+      {
+      const child = container.children[i]
+      child.addEventListener('click', (child) => 
+      { 
+        if(flag==0)
+        {
+         handleChildClick(child)
+        }
+        else if(flag==1)
+        {
+          handleChildClic(child)
+          
+        }
+      })
+    }
+    console.log(container.children[0])
+  }
+  abc()
+  function myFunc(){
+       if (confirm("Reset")) {
+        document.getElementById('0').innerText=' ';
+        document.getElementById('1').innerText=' ';
+        document.getElementById('2').innerText=' ';
+        document.getElementById('3').innerText=' ';
+        document.getElementById('4').innerText=' ';
+        document.getElementById('5').innerText=' ';
+        document.getElementById('6').innerText=' ';
+        document.getElementById('7').innerText=' ';
+        document.getElementById('8').innerText=' ';
+        document.getElementById("player").innerHTML="player 1";
+    } else {
+    txt = "You pressed Cancel!";
+    }
+  
+  }
+  function combination(currentVar)
+  {
+    allCombinations.forEach((comb) =>  {
+      if (document.getElementById(`${comb[0]}`).innerText === currentVar 
+          && document.getElementById(`${comb[1]}`).innerText === currentVar 
+          && document.getElementById(`${comb[2]}`).innerText === currentVar ) {
+            alert('We have a winner')
+      }
+    })
+
+  }
+  
+</script>
+
+</body>
+</html>
